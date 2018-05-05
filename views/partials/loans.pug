@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+  h1 Loans
+  p
+    a.button(href='/loans/new') Create New Loan
+
+  p(style="margin-top: 40px;") <strong>Filters:</strong>
+    | &nbsp;
+    a(href='/loans/page/1') All
+    | &nbsp; | &nbsp;
+    a(href='/loans/page/1?filter=overdue') Overdue
+    | &nbsp; | &nbsp;
+    a(href='/loans/page/1?filter=checked_out') Checked Out
+
+  p#total-items(style="margin-top: 0;") <strong>Total Items:</strong>
+    | &nbsp;
+    span#page-count= count
+
+  table(style="margin-top: 30px;")
+    thead
+      tr
+        th Book
+        th Patron
+        th Loaned on
+        th Return by
+        th Returned on
+        th Action
+    tbody
+      each loan in loans
+        tr
+          td
+            a(href='/books/' + loan.book.id)= loan.book.title
+          td
+            a(href='/patrons/' + loan.patron.id)
+              = loan.patron.first_name
+              | &nbsp;
+              =loan.patron.last_name
+          td= loan.loaned_on
+          td= loan.return_by
+          td= loan.returned_on
+          td
+            if (loan.returned_on === null)
+              a.button(href='/loans/' + loan.id + '/return') Return Book
+
+  p#pagination(style="margin-top: 40px;")

@@ -1,0 +1,42 @@
+
+extends ../layout
+
+block content
+  h1 Book: &nbsp;
+    span(style="font-weight: normal;")= book.title
+
+  form(action="/books/" + book.id + "?_method=PUT", method="post")
+    include form
+    p
+      input(type="submit" value="Update")
+
+  if(loans.length)
+    h2 Loan History
+
+    table
+      thead
+        tr
+          th Book
+          th Patron
+          th Loaned on
+          th Return by
+          th Returned on
+          th Action
+      tbody
+        each loan in loans
+          tr
+            td= book.title
+            td
+              a(href='/patrons/' + loan.patron.id)
+                =loan.patron.first_name
+                | &nbsp;
+                =loan.patron.last_name
+            td= loan.loaned_on
+            td= loan.return_by
+            td= loan.returned_on
+            td
+              if (loan.returned_on === null)
+                a.button(href='/loans/' + loan.id + '/return') Return Book
+  else
+    h2 Loan History
+    span There is no Loan History for this Book.
