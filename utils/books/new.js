@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
       res.redirect('/books/page/1');
     }).catch((err) => {
       if (err.name === 'SequelizeValidationError') {
-        res.renderres.render('partials/new_book', {
+        res.render('partials/new_book', {
           book: books.build(req.body), title: 'New Book', errors: err.errors
         });
       } else {
