@@ -20,9 +20,9 @@ module.exports = (req, res, next) => {
       let today = new Date();
       let addAWeek = new Date();
       addAWeek.setDate(today.getDate() + 7);
-      books.findAll({ attributes: ['id', 'title'], order: 'title' })
+      books.findAll({ attributes: ['id', 'title'], order: ['title'] })
         .then((books) => {
-          patrons.findAll({ attributes: ['id', 'first_name', 'last_name'], order: 'last_name' })
+          patrons.findAll({ attributes: ['id', 'first_name', 'last_name'], order: ['last_name'] })
             .then((patrons) => {
               res.render('partials/new_loan', {
                 books: books,
@@ -32,16 +32,8 @@ module.exports = (req, res, next) => {
                 errors: err.errors,
                 title: 'New Loan'
               });
-            }).catch((err) => {
-              console.log(err);
-              res.sendStatus(500);
-              next(err);
             });
-        }).catch((err) => {
-          console.log(err);
-          res.sendStatus(500);
-          next(err);
-        });
+          });
     } else {
       throw err;
     }
