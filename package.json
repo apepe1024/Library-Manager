@@ -1,6 +1,6 @@
 {
   "name": "library-manager",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Treehouse Techdegree Project 10, May 2018.",
   "main": "app.js",
   "scripts": {
