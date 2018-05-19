@@ -1,3 +1,4 @@
+
 extends ../layout
 
 block content
@@ -8,10 +9,11 @@ block content
     include errors
     include patron_form
     p
-      input(type='submit', value='Update')
+      input(type="submit" value="Update")
 
   if(results.length)
     h2 Loan History
+
     table
       thead
         tr
@@ -25,9 +27,9 @@ block content
         each result in results
           tr
             td
-              a(href='/books/' + result.book.id)=result.book.title
+              a(href="/books/" + result.book.id)=result.book.title
             td
-              a(href='/patrons/' + patron.id)
+              a(href="/patrons/" + patron.id)
                 =result.patron.first_name
                 | &nbsp;
                 =result.patron.last_name
@@ -36,8 +38,8 @@ block content
             td= result.returned_on
             td
               if (result.returned_on === null)
-                a.button(href='/loans/' + result.id + '/return') Return Book
+                a.button(href="/loans/" + result.id + "/return") Return Book
 
   else
     h2 Loan History
-    span There is no Loan History for this Book.
+    span There is no Loan History for this Patron.
